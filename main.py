@@ -4,6 +4,28 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import ImageGrid
 import numpy as np
 import cv2
+import pandas as pd
+from tensorflow.keras.models import load_model
+from tensorflow.keras.models import model_from_json
+
+
+def convert_training_data_to_csv(directory = "training_imagedata/"):
+
+    df_train = pd.DataFrame()
+    num = 1
+    image_list = []
+    for filename in os.listdir(directory):
+        for image in os.listdir(directory + filename):
+            if image.endswith(".jpg"):
+
+                img_original = cv2.imread(directory + filename + "/" + image)
+                img_resized = cv2.resize(img_original, (200, 200))
+                image_list.append(img_resized)
+
+
+    df_train = fe.get_features(image_list)
+    df.to_csv("featuredataset/Gabor.csv")
+
 
 
 # show contents in cropped_imgs
@@ -31,12 +53,17 @@ def showimages(cropped_imgs,y_probs = []):  # datatype is list of images
     plt.show()
 
 
-cropped_imgs: list = roi.get_roi(r"pictures/3.jpg")
 
+#get regions of interest
+cropped_imgs: list = roi.get_roi(r"input_pictures/2.jpg")  #provide image here for testing, then run the main.py
+
+#show regions of interests(ROI)
 showimages(cropped_imgs)
 
+#extract features from ROI
 df = fe.get_features(cropped_imgs)
 
+#convert to numpy array
 test_features = np.array(df)
 
 from sklearn.preprocessing import StandardScaler
@@ -44,20 +71,20 @@ scaler = StandardScaler()
 test_features = scaler.fit_transform(test_features)
 
 #classification
-
-from tensorflow.keras.models import load_model
-from tensorflow.keras.models import model_from_json
-
+#load trined models
 import json
-
 with open("models/model1_131221_fulldata.json",'r') as f:
     model_json = json.load(f)
 
 kish = model_from_json(model_json)
 kish.load_weights("models/model1_131221_fulldata.h5")
 
+#classification labels
 food = ['Meat', 'Noodles-Pasta', 'Rice', 'Soup']
 
+
+#prediction
 y_probs = kish.predict(test_features, verbose=0)
 
+#show result
 showimages(cropped_imgs,y_probs)
