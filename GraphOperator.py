@@ -1,3 +1,10 @@
+"""
+code for graph segmentation was inspired from https://github.com/sirius-mhlee/graph-based-image-segmentation which is a
+python implementation of - Pedro F. Felzenszwalb and Daniel P. Huttenlocher 'Efficient Graph-Based Image Segmentation' paper
+
+"""
+
+
 import math
 
 import OptimizedUnionFind as uf

@@ -9,6 +9,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.models import model_from_json
 
 
+# to extract features from the images and create a pandas dataframe
 def convert_training_data_to_csv(directory = "training_imagedata/"):
 
     df_train = pd.DataFrame()
@@ -66,12 +67,13 @@ df = fe.get_features(cropped_imgs)
 #convert to numpy array
 test_features = np.array(df)
 
+#preprocessing
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 test_features = scaler.fit_transform(test_features)
 
 #classification
-#load trined models
+#load trained models
 import json
 with open("models/model1_131221_fulldata.json",'r') as f:
     model_json = json.load(f)

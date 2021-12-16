@@ -8,9 +8,7 @@ import pandas as pd
 
 
 def get_features(cropped_imgs: list) -> pd.DataFrame:
-    """
-    :rtype: pandas.Dataframe
-    """
+
     # Gaussian kernel for giving more importance to center portion
     s, k = 50, 100  # generate a (2k+1)x(2k+1) gaussian kernel with mean=0 and sigma = s
     probs = [exp(-z * z / (2 * s * s)) / sqrt(2 * pi * s * s) for z in range(-k, k)]
