@@ -59,7 +59,7 @@ def get_roi(input_img_path):
         # print(type(save_img))
         return (save_img)
 
-    save_img = segmentation(0.5, 500, 50, input_img_path, r"/content/010102001.jpg")
+    save_img = segmentation(0.5,500, 50, input_img_path, r"/content/010102001.jpg")
     # sigma k min_size input_image_file output_image_file
 
     # Step 2: Kmeans on the segmented image, to find the color cluster

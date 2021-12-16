@@ -43,7 +43,7 @@ def showimages(cropped_imgs,y_probs = []):  # datatype is list of images
             ax.imshow(cv2.cvtColor(im, cv2.COLOR_BGR2RGB))
     else:
         for ax, im, p in zip(grid, cropped_imgs, y_probs):
-            if (np.max(p) * 100) < 40:
+            if (np.max(p) * 100) < 40:  #only those with propability greater than 40% are displayed
                 continue
 
             title = food[int(np.where(p == np.max(p))[0])] + " " + str(round((np.max(p) * 100), 2))
@@ -56,7 +56,7 @@ def showimages(cropped_imgs,y_probs = []):  # datatype is list of images
 
 
 #get regions of interest
-cropped_imgs: list = roi.get_roi(r"input_pictures/2.jpg")  #provide image here for testing, then run the main.py
+cropped_imgs: list = roi.get_roi(r"input_pictures/4.jpg")  #provide image here for testing, then run the main.py
 
 #show regions of interests(ROI)
 showimages(cropped_imgs)
@@ -75,11 +75,11 @@ test_features = scaler.fit_transform(test_features)
 #classification
 #load trained models
 import json
-with open("models/model1_131221_fulldata.json",'r') as f:
+with open("models/model1_161221_fulldata.json",'r') as f:
     model_json = json.load(f)
 
 kish = model_from_json(model_json)
-kish.load_weights("models/model1_131221_fulldata.h5")
+kish.load_weights("models/model1_161221_fulldata.h5")
 
 #classification labels
 food = ['Meat', 'Noodles-Pasta', 'Rice', 'Soup']

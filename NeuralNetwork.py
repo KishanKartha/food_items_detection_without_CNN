@@ -18,7 +18,7 @@ raw_df = pd.read_csv("/content/Gabor (10).csv", index_col=0)
 # raw_df.head()
 # raw_df["102"].unique()
 
-raw_df['102'] = raw_df['102'].map({'Meat': 0, 'Noodles-Pasta': 1, 'Rice': 2, 'Soup': 3})
+raw_df['134'] = raw_df['134'].map({'Meat': 0, 'Noodles-Pasta': 1, 'Rice': 2, 'Soup': 3})
 # display(raw_df.head())
 
 # Use a utility from sklearn to split and shuffle your dataset.
@@ -26,9 +26,9 @@ raw_df['102'] = raw_df['102'].map({'Meat': 0, 'Noodles-Pasta': 1, 'Rice': 2, 'So
 train_df, val_df = train_test_split(raw_df, test_size=0.2)
 
 # Form np arrays of labels and features.
-train_labels = np.array(train_df.pop('102'))
+train_labels = np.array(train_df.pop('134'))
 bool_train_labels = train_labels != 0
-val_labels = np.array(val_df.pop('102'))
+val_labels = np.array(val_df.pop('134'))
 # test_labels = np.array(test_df.pop('102'))
 train_features = np.array(train_df)
 val_features = np.array(val_df)
@@ -100,9 +100,9 @@ def make_model(metrics=METRICS, output_bias=None):
     # model.add(Dense(1, activation='sigmoid',bias_initializer=output_bias))
 
     model = Sequential()
-    model.add(Dense(102, input_dim=(train_features.shape[-1]), activation="relu"))
+    model.add(Dense(134, input_dim=(train_features.shape[-1]), activation="relu"))
     model.add(BatchNormalization())
-    model.add(Dense(102, activation="relu"))
+    model.add(Dense(134, activation="relu"))
     model.add(BatchNormalization())
     model.add(Dropout(0.2))
     # model.add(Dense(204, activation="relu"))

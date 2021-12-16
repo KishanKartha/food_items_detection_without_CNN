@@ -37,7 +37,7 @@ def get_features(cropped_imgs: list) -> pd.DataFrame:
         # Generate Gabor features
 
         # kernels = []  # Create empty list to hold all kernels that we will generate in a loop
-        for theta in range(3):  # number of thetas.
+        for theta in range(4):  # number of thetas.
             theta = theta / 4. * np.pi
             for sigma in (1, 3):  # Sigma with values of 1 and 3
                 for lamda in [np.pi / 8, np.pi / 4, np.pi / 2, np.pi]:  # Range of wavelengths
